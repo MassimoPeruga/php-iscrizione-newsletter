@@ -1,3 +1,6 @@
+<?php
+include 'functions.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,18 +23,10 @@
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
             if (isset($_GET["email"])) {
                 $email = $_GET["email"];
-
-                // Controlla se l'indirizzo email è ben formato
-                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $alertType = "success";
-                    $message = "La mail è ben formata.";
-                } else {
-                    $alertType = "danger";
-                    $message = "La mail non è ben formata.";
-                }
+                $message = verificaEmail($email);
 
                 // Mostra l'alert di Bootstrap
-                echo '<div class="alert alert-' . $alertType . ' mt-3" role="alert">' . $message . '</div>';
+                echo '<div class="alert alert-' . ($message == "La mail è ben formata." ? "success" : "danger") . ' mt-3" role="alert">' . $message . '</div>';
             }
         }
         ?>
